@@ -15,8 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # metrics
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import f1_score
+from sklearn.metrics import r2_score
 from sklearn.metrics import mean_absolute_error
 
 # for features
@@ -24,7 +23,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 
 # model
-from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 
 # saving/loading
@@ -40,16 +38,14 @@ df.columns = df.columns.str.lower()
 
 cat_variables = df.select_dtypes('object').columns
 
+# column names to lowercase
+df.columns = df.columns.str.lower()
+
+cat_variables = df.select_dtypes('object').columns
+
 # make values uniform
 for column_name in cat_variables:
     df[column_name] = df[column_name].str.lower().str.replace(' ', '_')
-
-
-ordinal_order = ['low', 'medium', 'high']
-ordinal_data = ['parental_involvement', 'access_to_resources', 'family_income', 'teacher_quality', 'motivation_level']
-
-for cols in ordinal_data:
-    df[cols] = pd.Categorical(df[cols], categories=ordinal_order, ordered=True)
 
 # drop the rows containing null values
 df.dropna(inplace=True)
@@ -75,7 +71,8 @@ del df_test['hours_studied']
 df_train, df_val, y_train, y_val = train_test_split(df_full_train, y_full, test_size=len(df_test), random_state=1)
 
 
-print("TRAINING XGB MODEL...")
+print("TRAINING XGB MODEL ON VALIDATION DATA...")
+
 dv = DictVectorizer(sparse=False)
 # convert df to dictionary for dictvectorizer
 train_dict = df_train.to_dict(orient='records')
@@ -90,25 +87,15 @@ X_val = dv.transform(val_dict)
 dtrain = xgb.DMatrix(X_train, label=y_train)
 dval = xgb.DMatrix(X_val, label=y_val)
 
-# handling validation from xgb.train
-def parse_output(output):
-  df_score = []
-  s = output.stdout
-  for line in s.split('\n')[:-1]: # separate each line
-    # print(line)
-    n_iter, validation_text = line.split('\t') # separate \t
-    n_iter = int(n_iter.strip('[]')) # convert to integer after stripping the brackets
-    result = float(validation_text.split(':')[1]) # extract the number
-    df_score.append((n_iter, result))
-  
-  return pd.DataFrame(df_score, columns=["n_iteration", "mae"])
-
-# train the regression model
+# train the regression model 
 params = {
     "eval_metric": "mae",              # mae for evaluation
-    "learning_rate": 0.3,
-    "max_depth": 4,
-    "seed": 42
+    "learning_rate": 0.50605263,
+    "max_depth": 2,
+    "min_child_weight" : 9,
+    "colsample_bytree": 0.60526316,
+    "seed": 42,
+    "objective": 'reg:squarederror'
 }
 
 model = xgb.train(
@@ -120,7 +107,7 @@ model = xgb.train(
     verbose_eval=10
 )
 
-print("FULL TRAINING XGB MODEL...")
+print("\nFULL TRAINING XGB MODEL...")
 
 test_dict = df_test.to_dict(orient='records')
 X_test = dv.transform(test_dict)
@@ -130,20 +117,24 @@ X_full = dv.transform(full_dict)
 
 # train on full
 dtrain = xgb.DMatrix(X_full, label=y_full)
-dval = xgb.DMatrix(X_test, label=y_test)
+dtest = xgb.DMatrix(X_test, label=y_test)
 
+# train the regression model
 params = {
-    "eval_metric": "mae",            
-    "learning_rate": 0.3,
-    "max_depth": 4,
-    "seed": 42
+    "eval_metric": "mae",              # mae for evaluation
+    "learning_rate": 0.50605263,
+    "max_depth": 2,
+    "min_child_weight" : 9,
+    "colsample_bytree": 0.60526316,
+    "seed": 42,
+    "objective": 'reg:squarederror'
 }
 
 model = xgb.train(
     params,
     dtrain,
     num_boost_round=500,
-    evals=[(dval, "Validation")],
+    evals=[(dtest, "Validation")],
     early_stopping_rounds=10,
     verbose_eval=10
 )
@@ -157,8 +148,6 @@ y_pred_cat = np.round(y_pred).astype(int)
 mae = mean_absolute_error(y_test, y_pred)
 print("Final Mean Absolute Error:", mae)
 
-
-from sklearn.metrics import r2_score
 # for categorizing the target variable 'hours_studied'
 def categorize_hours(hours):
     middle = np.round(hours)
@@ -186,26 +175,27 @@ def is_within_range(actual, predicted):
 accuracy = df_result.apply(lambda row: is_within_range(row['actual_cat'], row['predicted_cat']), axis=1).mean()
 print(f'Accuracy: {accuracy}')
 
-# ### Test on random Sample
-test_student = {'attendance': 88,
- 'parental_involvement': 'medium',
- 'access_to_resources': 'medium',
- 'extracurricular_activities': 'yes',
- 'sleep_hours': 8,
- 'previous_scores': 89,
- 'motivation_level': 'medium',
- 'internet_access': 'yes',
- 'tutoring_sessions': 3,
- 'teacher_quality': 'medium',
- 'school_type': 'public',
- 'peer_influence': 'positive',
- 'physical_activity': 3,
- 'learning_disabilities': 'no',
- 'distance_from_home': 'near',
- 'exam_score': 71}
-
-student = dv.transform(test_student)
-pd.Series(model.predict(xgb.DMatrix(student)))
+### Random Sample
+# {'hours_studied': 27,
+#  'attendance': 68,
+#  'parental_involvement': 'medium',
+#  'access_to_resources': 'medium',
+#  'extracurricular_activities': 'yes',
+#  'sleep_hours': 7,
+#  'previous_scores': 95,
+#  'motivation_level': 'low',
+#  'internet_access': 'yes',
+#  'tutoring_sessions': 0,
+#  'family_income': 'medium',
+#  'teacher_quality': 'medium',
+#  'school_type': 'public',
+#  'peer_influence': 'positive',
+#  'physical_activity': 4,
+#  'learning_disabilities': 'no',
+#  'parental_education_level': 'high_school',
+#  'distance_from_home': 'near',
+#  'gender': 'male',
+#  'exam_score': 67}
 
 # Save Model
 output_file=f'study_hestimator.bin'
