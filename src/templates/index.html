@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Study Hours Estimator</title>
+</head>
+<body>
+  <div>Welcome to Study Hours Estimator</div>
+
+  {% if result != None %}
+  <div>
+    <p><b>Estimated Study Hours: {{ result }} Hours</b></p>
+  </div>
+  {% endif %}
+
+  <form id="student-form" action="/student_form" method="post" autocomplete=off>
+    {{ form.csrf_token }}
+    <!-- basic information -->
+    <div>
+      {{ form.name.label }} <br/>
+      {{ form.name(size=16) }}
+    </div>
+    <div>
+      {{ form.gender.label }} <br/>
+      {{ form.gender }}
+    </div>
+
+    <!-- school related -->
+    <div>
+      {{ form.school_type.label }} <br/>
+      {{ form.school_type }}
+    </div>
+
+    <!-- class performance -->
+    <div>
+      {{ form.attendance.label }} <br/>
+      {{ form.attendance }}
+    </div>
+    <div>
+      {{ form.exam_score.label }} <br/>
+      {{ form.exam_score }}
+    </div>
+    <div>
+      {{ form.previous_score.label }} <br/>
+      {{ form.previous_score }}
+    </div>
+
+    <!-- environment -->
+    <div>
+      {{ form.teacher_quality.label }} <br/>
+      {{ form.teacher_quality }}
+    </div>
+    <div>
+      {{ form.internet_access.label }} <br/>
+      {{ form.internet_access }}
+    </div>
+    <div>
+      {{ form.access_to_resources.label }} <br/>
+      {{ form.access_to_resources }}
+    </div>
+    <div>
+      {{ form.distance_from_home.label }} <br/>
+      {{ form.distance_from_home }}
+    </div>
+    <div>
+      {{ form.parental_involvement.label }} <br/>
+      {{ form.parental_involvement }}
+    </div>
+
+    <!-- extra school related tasks -->
+    <div>
+      {{ form.tutoring_sessions.label }} <br/>
+      {{ form.tutoring_sessions }}
+    </div>
+    <div>
+      {{ form.extracurricular_activities.label }} <br/>
+      {{ form.extracurricular_activities }}
+    </div>
+
+    <!-- personal life -->
+    <div>
+      {{ form.sleep_hours.label }} <br/>
+      {{ form.sleep_hours }}
+    </div>
+    <div>
+      {{ form.physical_activity.label }} <br/>
+      {{ form.physical_activity }}
+    </div>
+    <div>
+      {{ form.motivation_level.label }} <br/>
+      {{ form.motivation_level }}
+    </div>
+    <div>
+      {{ form.peer_influence.label }} <br/>
+      {{ form.peer_influence }}
+    </div>
+    <div>
+      {{ form.learning_disabilities.label }} <br/>
+      {{ form.learning_disabilities }}
+    </div>
+
+    <!-- family situation related -->
+    <div>
+      {{ form.family_income.label }} <br/>
+      {{ form.family_income }}
+    </div>
+    <div>
+      {{ form.parental_education_level.label }} <br/>
+      {{ form.parental_education_level }}
+    </div>
+
+    <div>
+      {{form.submit()}}
+    </div>
+    <button type="button" onclick="document.getElementById('student-form').reset()">Clear</button>
+  </form>
+</body>
+<script>
+  window.onload = function() {
+      const form = document.querySelector("student-form");
+      form.reset(); // Clears all fields in the form
+  };
+</script>
