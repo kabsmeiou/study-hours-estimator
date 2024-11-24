@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merienda:wght@300..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+html {
+  background-color: #eff1ed;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+}
+
+.illustration {
+  width: 200px;
+  height: auto;
+}
+
+.title-text {
+  font-family: "Merienda", cursive;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  margin-left: 10px; /* Add some space between the illustration and text */
+  font-size: 2.5rem;
+  font-weight: bold;
+  flex-grow: 1; /* This makes the text take up available space */
+  text-align: center; /* Center the text horizontally within its space */
+}
+
+.gradient-text span {
+  font-family: "Merienda", cursive;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1.25rem;
+  font-weight: bold;
+  flex-grow: 1; /* This makes the text take up available space */
+  text-align: center; /* Center the text horizontally within its space */
+  background-image: linear-gradient(135deg, #ccd5ae 0%, #d4a373 100%);
+  -webkit-background-clip: text; /* Ensures the background is clipped to the text */
+  color: transparent; /* Makes the text itself transparent so only the background shows */
+}
+
+form {
+  width: max-content;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.form-grid {
+  display: flex;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.result-text {
+  display: flex;
+  font-size: 1.2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.form-fields {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  padding: 0em 0.5em 0em;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.label-form {
+  font-weight: 300;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Styling for input fields */
+/* Styling for input fields */
+.target-box input {
+  width: 10rem;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  margin-left: 1rem;
+}
+
+.form-box input {
+  width: 80%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-box input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Select dropdown styling */
+select {
+  width: max-content;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none; /* Safari/Chrome compatibility */
+  -moz-appearance: none; /* Firefox compatibility */
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* CSS */
+.button-6 {
+  align-items: center;
+  background: linear-gradient(135deg, #ccd5ae 0%, #d4a373 100%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.button-6:hover {
+  transform: translateY(-1px);
+}
+
+.button-6:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+
+.btn {
+  width: 100%;
+  margin-top: 2rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,19 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment
+venv/
+
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore IDE files
+*.vscode/
+.idea/
+
+# Ignore environment files
+.env
+.ipynb_checkpoints

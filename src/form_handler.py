@@ -1,18 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, SelectField
-from wtforms.validators import InputRequired, Length
+from wtforms.validators import InputRequired, Length, NumberRange
 
 
 class StudentForm(FlaskForm):
-  name=StringField("Name")
+  name=StringField("Name", validators=[InputRequired(), Length(min=1, max=16, message='Name must be between 1 and 16 characters')])
 
   # integer fields
-  attendance=IntegerField("Attendance Percentage", validators=[InputRequired()])
-  sleep_hours=IntegerField("Hours of Sleep", validators=[InputRequired()])
-  previous_score=IntegerField("Previous Exam Score", validators=[InputRequired()])
-  tutoring_sessions=IntegerField("Number of Tutoring Sessions", validators=[InputRequired()])
-  physical_activity=IntegerField("Number of Physical Activities", validators=[InputRequired()])
-  exam_score=IntegerField("Target Exam Score", validators=[InputRequired()])
+  attendance=IntegerField("Attendance Percentage", validators=[InputRequired(), NumberRange(min=0, max=100, message='Minimum input: 0, Maximum input: 100')])
+  sleep_hours=IntegerField("Hours of Sleep", validators=[InputRequired(), NumberRange(min=0, message='Minimum input: 0')])
+  previous_scores=IntegerField("Previous Exam Score", validators=[InputRequired(), NumberRange(min=0, max=100, message='Minimum input: 0, Maximum input: 100')])
+  tutoring_sessions=IntegerField("Number of Tutoring Sessions", validators=[InputRequired(), NumberRange(min=0, message='Minimum input: 0')])
+  physical_activity=IntegerField("Number of Physical Activities", validators=[InputRequired(), NumberRange(min=0, message='Minimum input: 0')])
+  exam_score=IntegerField("Target Exam Score", validators=[InputRequired(), NumberRange(min=0, max=100, message='Minimum input: 0, Maximum input: 100')])
 
   # categorical fields (select type)
   parental_involvement=SelectField(u"Level of Parental Involvement",
@@ -25,11 +25,10 @@ class StudentForm(FlaskForm):
                                   choices=[('medium', 'Medium'), 
                                             ('high', 'High'), 
                                             ('low', 'Low')])
-  internet_access=SelectField(u"Level of Access to Internet",
+  internet_access=SelectField(u"Access to Internet",
                                   validators=[InputRequired()], 
-                                  choices=[('medium', 'Medium'), 
-                                            ('high', 'High'), 
-                                            ('low', 'Low')])
+                                 choices=[('yes', 'Yes'),
+                                          ('no', 'No')])
   extracurricular_activities=SelectField(u"Has Extra Curricular Activities", 
                                          validators=[InputRequired()],
                                          choices=[('no', 'No'), 
@@ -77,4 +76,4 @@ class StudentForm(FlaskForm):
                      choices=[('male', 'Male'),
                               ('female', 'Female')])
   
-  submit = SubmitField()
+  submit = SubmitField('Predict Hours Needed', render_kw={'class': 'button-6'})
