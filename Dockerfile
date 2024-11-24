@@ -1,16 +1,16 @@
 FROM python:3.12-slim-bookworm
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set the working directory inside the container
+# set the working directory inside the container
 WORKDIR /app
 
-# Copy the project into the image
-COPY ["pyproject.toml", "uv.lock", "./"]
-RUN uv sync --frozen
-COPY . .
+# copy the project files into the image
+COPY . /app
 
-# Expose the port your application will run on
+# install dependencies using pip from the requirements.txt
+RUN pip install -r requirements.txt
+
+# expose the port
 EXPOSE 9696
 
-# Command to run the application
-ENTRYPOINT ["gunicorn", "--bind=0.0.0.0:9696", "predict:app"]
+# run the script.py file in src/ with gunicorn
+ENTRYPOINT ["gunicorn", "--bind=0.0.0.0:9696", "src.script:app"]

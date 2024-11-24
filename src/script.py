@@ -1,4 +1,3 @@
-from markupsafe import escape
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 
 from flask_wtf import CSRFProtect
@@ -8,9 +7,8 @@ import pickle
 # for dmatrix conversion
 import xgboost as xgb
 
-
 # form for the student details
-from form_handler import StudentForm
+from src.form_handler import StudentForm
 
 app = Flask(__name__)
 key = secrets.token_urlsafe(16)
