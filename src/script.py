@@ -52,7 +52,7 @@ def predict(student_data):
 
     if y <= 0:
         study_hours = {
-            "study_hours": "You don't need to study"
+            "study_hours": "0"
         }
         return jsonify(study_hours)
 
