@@ -1,7 +1,4 @@
-
-https://github.com/user-attachments/assets/71238a7d-afc3-4d4a-ac52-74c0d15f667b
 # Study Hours Estimator
-
 Task: **Regression**
 
 The purpose of this project is to create a machine learning model that predicts the total number of study hours a student may need to prepare for a particular topic or course. Using general features such as target exam score, sleep hours, motivation level, and access to resources, the model will predict the number of studying required and the result will be processed and categorized into categories of estimated hours(+-2). This is a regression task aimed at helping students plan their study schedules by providing time estimates that align with their individual learning needs, habits, and current circumstances.
