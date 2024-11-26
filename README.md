@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/71238a7d-afc3-4d4a-ac52-74c0d15f667b
 # Study Hours Estimator
 
 Task: **Regression**
@@ -85,4 +87,5 @@ Here are some of the images proving a successful app deployment on AWS Beanstalk
 ![Logs](https://i.imgur.com/epne76z.png)
 
 ### Video demonstration with AWS Beanstalk domain
+https://github.com/user-attachments/assets/d53d4159-bc53-4385-838e-55a5b2fc6751
 
