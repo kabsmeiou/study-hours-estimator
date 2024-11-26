@@ -64,7 +64,7 @@ Then, on your terminal, run this command:
 ```
 docker run -it --rm -p 9696:9696 study-app
 ```
-In case of the error *docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied.*, add *sudo* to the commands above with *docker build* and *docker run*.
+In case of the error ***docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied.***, add *sudo* to the commands above with *docker build* and *docker run*.
 
 You should see something like this:
 ![alt text](https://i.imgur.com/CfruF1s.png)
