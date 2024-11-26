@@ -10,10 +10,10 @@ Provenance: The "Student Performance Factors" dataset is a synthetic dataset gen
 
 ### About the project
 
-**Package Manager:** uv: Python packaging in Rust
-**Virtual Environment:** uv virtual environment
-**Web Deployment:** Flask
-**Container:** Docker
+**Package Manager:** uv: Python packaging in Rust\
+**Virtual Environment:** uv virtual environment\
+**Web Deployment:** Flask\
+**Container:** Docker\
 **Cloud Service:** AWS Beanstalk
 
 ### How to use the project
@@ -36,7 +36,7 @@ Upon creating the environment, activate it with
 ```
 .venv/Scripts/activate
 ```
-or
+or\
 **Unix-based systems**
 ```
 source .venv/bin/Activate
@@ -65,7 +65,7 @@ docker run -it --rm -p 9696:9696 study-app
 ```
 In case of the error ***docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied.***, add *sudo* to the commands above with *docker build* and *docker run*.
 
-You should see something like this:
+You should see something like this:\
 ![alt text](https://i.imgur.com/EbwbfFa.png)
 
 Finally, you may access 
@@ -80,7 +80,7 @@ and start filling out the forms to get predictions!
 After successfully deploying it to cloud, I opted to not keep it running to avoid unintended costs.
 
 Here are some of the images proving a successful app deployment on AWS Beanstalk:
-![Environment Details](https://i.imgur.com/CfruF1s.png)
+![Environment Details](https://i.imgur.com/CfruF1s.png)\
 ![Logs](https://i.imgur.com/epne76z.png)
 
 ### Video demonstration with AWS Beanstalk domain
