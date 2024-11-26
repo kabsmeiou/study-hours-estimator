@@ -7,3 +7,5 @@ This is a regression task aimed at helping students plan their study schedules b
 docker build -t study-app .
 
 docker run -it --rm -p 9696:9696 study-app
+
+uv run eb create stud-hours-estimator
